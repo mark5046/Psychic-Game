@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Psychic Game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+    
+    <h1>The Psychic Game</h1>
+
+    <p>Guess what letter I'm thinking of.</p>
+
+    <p id="Wl">Wins: 0</p>
+
+    <p id="Ll">Losses: 0</p>
+
+    <p id="Gl">Guesses left: 9</p>
+
+    <p id="Ag">Your guesses so far:</p>
+
+    <script type="text/javascript">
+
+    var wins = 0;
+    var losses = 0;
+    var guessCount = 9;
+    var predictions = [];
+
+    var letterChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+    document.onkeyup = function(event){
+
+        var userGuess = event.key;
+
+        var letterThought = letterChoices[Math.floor(Math.random() * letterChoices.length)];
+
+        console.log(letterThought);
+
+        // This makes sure only letters affect number of guesses
+        if ((userGuess === "a") || (userGuess === "b") || (userGuess === "c") || (userGuess === "d") || (userGuess === "e") || (userGuess === "f") || (userGuess === "g") || (userGuess === "h") || (userGuess === "i") || (userGuess === "j") || (userGuess === "k") || (userGuess === "l") || (userGuess === "m") || (userGuess === "n") || (userGuess === "o") || (userGuess === "p") || (userGuess === "q") || (userGuess === "r") || (userGuess === "s") || (userGuess === "t") || (userGuess === "u") || (userGuess === "v") || (userGuess === "w") || (userGuess === "x") || (userGuess === "y") || (userGuess === "z")) {
+        
+        // This is for when an incorrect letter is guessed
+        if (userGuess != letterThought) {
+        guessCount--;
+        $("#Gl").html("Guesses left: " + guessCount);
+        predictions.push(userGuess);
+        $("#Ag").html("Your guesses so far: " + predictions.join(","));
+
+        console.log(userGuess);
+        }
+            
+        // This is for when the correct letter is chosen
+        if (userGuess === letterThought) {
+            predictions = [];
+            $("#Ag").html("Your guesses so far:");
+            wins++;
+            $("#Wl").html("Wins: " + wins);
+            guessCount = 9;
+            $("#Gl").html("Guesses left: " +guessCount);
+        }
+
+        // This is for when you run out of guesses
+        if (guessCount === 0) {
+            predictions = [];
+            $("#Ag").html("Your guesses so far:");
+            losses++;
+            $("#Ll").html("Losses: " + losses);
+            guessCount = 9;
+            $("#Gl").html("Guesses left: " +guessCount);
+        }
+
+        }
+    }
+    
+    </script>
+    
+</body>
+</html>
